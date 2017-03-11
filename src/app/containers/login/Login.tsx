@@ -13,7 +13,7 @@ interface IAppProps { }
 interface IAppState { }
 
 class Login extends React.Component<IAppProps, IAppState> {
-  render() {
+  render(): JSX.Element {
     return (
       <div className='layout-column flex'>
         <Cover title={APP_NAME} subTitle='LINE WITH YOU' />

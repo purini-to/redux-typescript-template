@@ -10,7 +10,7 @@ interface IAppProps { }
 interface IAppState { }
 
 class App extends React.Component<IAppProps, IAppState> {
-  render() {
+  render(): JSX.Element {
     return (
       <div className='layout-column flex'>
         {this.props.children}

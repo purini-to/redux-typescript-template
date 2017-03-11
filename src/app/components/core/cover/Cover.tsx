@@ -19,7 +19,7 @@ class Cover extends React.Component<ICoverProps, ICoverState> {
     className: React.PropTypes.string
   };
 
-  render() {
+  render(): JSX.Element {
     const { theme, title, subTitle, ...others } = this.props;
     const className = classnames(theme.root, this.props.className);
 
