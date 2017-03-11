@@ -5,8 +5,11 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FailPlugin = require('webpack-fail-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const pkg = require('../package.json');
 const autoprefixer = require('autoprefixer');
+const cssnext = require('postcss-cssnext');
+const toolboxVariables = require('./toolbox-variables');
 
 module.exports = {
   module: {
@@ -27,7 +30,7 @@ module.exports = {
         test: /\.(css|scss)$/,
         loaders: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          use: 'css-loader?minimize!sass-loader!postcss-loader'
+          use: 'css-loader?modules&minimize&importLoaders=1&localIdentName=[hash:base64:4]!sass-loader!postcss-loader'
         })
       },
       {
@@ -36,7 +39,15 @@ module.exports = {
         loaders: [
           'ts-loader'
         ]
-      }
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+        loader: 'file-loader'
+      },
+      {
+        test: /\.(eot|ttf|wav|mp3)$/,
+        loader: 'file-loader',
+      },
     ]
   },
   plugins: [
@@ -49,15 +60,48 @@ module.exports = {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"'
     }),
+    new CopyWebpackPlugin([
+      { from: 'src/app/assets', to: 'assets' }
+    ]),
     new webpack.optimize.UglifyJsPlugin({
-      output: {comments: false},
-      compress: {unused: true, dead_code: true, warnings: false} // eslint-disable-line camelcase
+      beautify: false, //prod
+      output: {
+        comments: false
+      }, //prod
+      mangle: {
+        screw_ie8: true
+      }, //prod
+      compress: {
+        screw_ie8: true,
+        warnings: false,
+        conditionals: true,
+        unused: true,
+        comparisons: true,
+        sequences: true,
+        dead_code: true,
+        evaluate: true,
+        if_return: true,
+        join_vars: true,
+        negate_iife: false 
+      } // eslint-disable-line camelcase
     }),
-    new ExtractTextPlugin('index-[contenthash].css'),
-    new webpack.optimize.CommonsChunkPlugin({name: 'vendor'}),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.AggressiveMergingPlugin(),
+    new ExtractTextPlugin('[name].[contenthash].css'),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' }),
     new webpack.LoaderOptionsPlugin({
+      minimize: true,
+      debug: false,
       options: {
-        postcss: () => [autoprefixer],
+        postcss: () => [
+          autoprefixer,
+          cssnext({
+            features: {
+              customProperties: {
+                variables: toolboxVariables,
+              },
+            },
+          })],
         resolve: {},
         ts: {
           configFileName: 'tsconfig.json'
@@ -70,7 +114,7 @@ module.exports = {
   ],
   output: {
     path: path.join(process.cwd(), conf.paths.dist),
-    filename: '[name]-[hash].js'
+    filename: '[name].[hash].js'
   },
   resolve: {
     extensions: [
@@ -83,6 +127,6 @@ module.exports = {
   },
   entry: {
     app: `./${conf.path.src('index')}`,
-    vendor: Object.keys(pkg.dependencies).filter(dep => ['todomvc-app-css'].indexOf(dep) === -1)
+    vendor: Object.keys(pkg.dependencies)
   }
 };

@@ -1,0 +1,42 @@
+@import "~react-toolbox/lib/colors";
+
+.root {
+  color: var(--color-dark-contrast);
+
+  &:after {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    min-height: 300px;
+    height: 40%;
+    left: 0;
+    right: 0;
+    background-image: url(/assets/cover_lg.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    content: "";
+    box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.14);
+  }
+}
+
+.container {
+  position: relative;
+  margin-top: 64px;
+  z-index: 1;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.title {
+  font-size: 32px;
+  letter-spacing: 1px;
+  margin: 0;
+}
+
+.subTitle {
+  font-size: 22px;
+  letter-spacing: 3px;
+  margin: 0;
+  color: rgba(255,255,255,.7);
+}

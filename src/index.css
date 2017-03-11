@@ -1,0 +1,36 @@
+:global {
+  html,
+  body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+    background: #f5f5f5;
+  }
+
+  .layout {
+    display: flex;
+  }
+  .layout-column {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .a-center {
+    align-items: center;
+  }
+  .j-center {
+    justify-content: center;
+  }
+  .f-center {
+    align-items: center;
+    justify-content: center;
+  }
+
+  .flex {
+    flex: 1;
+  }
+}

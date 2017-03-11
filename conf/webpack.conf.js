@@ -4,7 +4,10 @@ const path = require('path');
 
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FailPlugin = require('webpack-fail-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const autoprefixer = require('autoprefixer');
+const cssnext = require('postcss-cssnext');
+const toolboxVariables = require('./toolbox-variables');
 
 module.exports = {
   module: {
@@ -25,7 +28,7 @@ module.exports = {
         test: /\.(css|scss)$/,
         loaders: [
           'style-loader',
-          'css-loader',
+          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:3]',
           'sass-loader',
           'postcss-loader'
         ]
@@ -37,7 +40,15 @@ module.exports = {
           'react-hot-loader',
           'ts-loader'
         ]
-      }
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+        loader: 'file-loader'
+      },
+      {
+        test: /\.(eot|ttf|wav|mp3)$/,
+        loader: 'file-loader',
+      },
     ]
   },
   plugins: [
@@ -48,9 +59,21 @@ module.exports = {
       template: conf.path.src('index.html')
     }),
     new webpack.HotModuleReplacementPlugin(),
+    new CopyWebpackPlugin([
+      { from: 'src/app/assets', to: 'assets' }
+    ]),
     new webpack.LoaderOptionsPlugin({
       options: {
-        postcss: () => [autoprefixer],
+        postcss: () => [
+          autoprefixer,
+          cssnext({
+            features: {
+              customProperties: {
+                variables: toolboxVariables,
+              },
+            },
+          })
+        ],
         resolve: {},
         ts: {
           configFileName: 'tsconfig.json'

@@ -1,4 +1,7 @@
 const webpack = require('webpack');
+const cssnext = require('postcss-cssnext');
+const toolboxVariables = require('./toolbox-variables');
+
 module.exports = {
   module: {
     loaders: [
@@ -15,6 +18,23 @@ module.exports = {
         enforce: 'pre'
       },
       {
+        test: /\.(css|scss)$/,
+        loaders: [
+          'style-loader',
+          'css-loader?modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:3]',
+          'sass-loader',
+          'postcss-loader'
+        ]
+      },
+      {
+        test: /\.(png|jpg|jpeg|gif|svg|woff|woff2)$/,
+        loader: 'file-loader'
+      },
+      {
+        test: /\.(eot|ttf|wav|mp3)$/,
+        loader: 'file-loader',
+      },
+      {
         test: /\.tsx$/,
         exclude: /node_modules/,
         loaders: [
@@ -26,14 +46,23 @@ module.exports = {
   plugins: [
     new webpack.LoaderOptionsPlugin({
       options: {
-        resolve: {},
-        ts: {
-          configFileName: 'tsconfig.json'
-        },
-        tslint: {
-          configuration: require('../tslint.json')
-        }
+      postcss: () => [
+        cssnext({
+          features: {
+            customProperties: {
+              variables: toolboxVariables,
+            },
+          },
+        })
+      ],
+      resolve: {},
+      ts: {
+        configFileName: 'tsconfig.json'
       },
+      tslint: {
+        configuration: require('../tslint.json')
+      }
+    },
       debug: true
     })
   ],
