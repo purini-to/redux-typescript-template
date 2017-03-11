@@ -1,17 +1,16 @@
 import * as React from 'react';
-import {IDispatch} from '~react-redux~redux';
-import {bindActionCreators} from 'redux';
-import {connect} from 'react-redux';
+import { bindActionCreators, Dispatch } from 'redux';
+import { connect } from 'react-redux';
 import Header from '../components/Header';
 import MainSection from '../components/MainSection';
-import {addTodo, deleteTodo, editTodo, completeTodo, completeAll, clearCompleted} from '../actions/index';
+import { addTodo, deleteTodo, editTodo, completeTodo, completeAll, clearCompleted } from '../actions/index';
 
 interface IAppProps {
   todos?: any[];
   actions?: any;
 }
 
-interface IAppState {}
+interface IAppState { }
 
 class App extends React.Component<IAppProps, IAppState> {
   static propTypes = {
@@ -20,28 +19,28 @@ class App extends React.Component<IAppProps, IAppState> {
   };
 
   render() {
-    const {todos, actions} = this.props;
+    const { todos, actions } = this.props;
     return (
       <div>
         <Header
           addTodo={actions.addTodo}
-          />
+        />
         <MainSection
           todos={todos}
           actions={actions}
-          />
+        />
       </div>
     );
   }
 }
 
-function mapStateToProps(state: any) {
+function mapStateToProps(state: any): IAppProps {
   return {
     todos: state.todos
   };
 }
 
-function mapDispatchToProps(dispatch: IDispatch) {
+function mapDispatchToProps(dispatch: Dispatch<any>) {
   return {
     actions: bindActionCreators({
       addTodo,
@@ -54,7 +53,7 @@ function mapDispatchToProps(dispatch: IDispatch) {
   };
 }
 
-export default connect(
+export default connect<IAppState, {}, IAppProps>(
   mapStateToProps,
   mapDispatchToProps
 )(App);
