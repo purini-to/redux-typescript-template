@@ -38,4 +38,22 @@
   .flex {
     flex: 1;
   }
+
+  .wait {
+    cursor: buzy !important;
+
+    .icon {
+      position: absolute;
+      height: 30px;
+      top: 10%;
+    }
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  [disabled] {
+    cursor: not-allowed;
+  }
 }

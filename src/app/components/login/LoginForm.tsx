@@ -4,6 +4,7 @@ import { Dispatch } from 'redux';
 import { Field, reduxForm, FormProps, FormErrors } from 'redux-form';
 import Input from 'react-toolbox/lib/input';
 import { Button } from 'react-toolbox/lib/button';
+import ProgressBar from 'react-toolbox/lib/progress_bar';
 import { themr } from 'react-css-themr';
 
 import * as Styles from './LoginForm.css';
@@ -20,6 +21,7 @@ interface ILoginFormProps extends FormProps<IFormFields, {}, {}> {
   onSubmit: (values: IFormFields, dispatch: Dispatch<{}>, props: ILoginFormProps) => void | FormErrors<FormData> | Promise<any>;
   theme?: any;
   className?: string;
+  wait?: boolean;
 }
 
 interface ILoginFormState { };
@@ -38,8 +40,18 @@ class LoginForm extends React.Component<ILoginFormProps, ILoginFormState> {
     );
   }
 
-  public render(): JSX.Element {
-    const { handleSubmit, onSubmit, invalid, theme } = this.props;
+  renderSubmitButton(invalid: boolean, wait: boolean) {
+    const className = classnames('flex', wait ? 'wait' : '');
+    const classNameProg = classnames('icon', wait ? '' : 'hidden');
+    return (
+      <Button label='ログイン' className={className} disabled={invalid || wait} raised accent type='submit'>
+        <ProgressBar className={classNameProg} type='circular' mode='indeterminate' multicolor />
+      </Button>
+    );
+  }
+
+  render(): JSX.Element {
+    const { handleSubmit, onSubmit, invalid, theme, wait } = this.props;
     const className = classnames('layout-column', 'f-center', theme.root, this.props.className);
 
     return (
@@ -49,7 +61,7 @@ class LoginForm extends React.Component<ILoginFormProps, ILoginFormState> {
         <Field name='password' component={this.renderInput} placeholder='パスワード'
           type='password' required className={theme.inputContainer} />
         <div className={classnames('layout', 'f-center', theme.actions)}>
-          <Button label='ログイン' className='flex' disabled={invalid} raised accent type='submit' />
+          {this.renderSubmitButton(invalid, wait)}
         </div>
       </form>
     );

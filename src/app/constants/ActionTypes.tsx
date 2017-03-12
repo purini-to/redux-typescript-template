@@ -5,3 +5,5 @@ export const COMPLETE_TODO = 'COMPLETE_TODO';
 export const COMPLETE_ALL = 'COMPLETE_ALL';
 export const CLEAR_COMPLETED = 'CLEAR_COMPLETED';
 export const LOGIN_USER = 'LOGIN_USER';
+export const REQUEST_WAIT = 'REQUEST_WAIT';
+export const REQUEST_COMPLETE = 'REQUEST_COMPLETE';

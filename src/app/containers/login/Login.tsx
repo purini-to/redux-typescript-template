@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
+import ProgressBar from 'react-toolbox/lib/progress_bar';
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import * as classnames from 'classnames';
@@ -12,6 +13,7 @@ import { login } from '../../actions/auth/auth';
 import * as Styles from './Login.css';
 
 interface IAppProps {
+  wait: boolean;
   actions?: any;
 }
 
@@ -19,7 +21,9 @@ interface IAppState { }
 
 class Login extends React.Component<IAppProps, IAppState> {
   handleSubmit(form: object) {
-    this.props.actions.login(form);
+    if (!this.props.wait) {
+      this.props.actions.login(form);
+    }
   }
 
   render(): JSX.Element {
@@ -32,7 +36,7 @@ class Login extends React.Component<IAppProps, IAppState> {
             <CardTitle title='ログイン' subtitle='あなたのユーザー情報を入力してください'
               className='layout-column f-center center' />
             <CardText>
-              <LoginForm onSubmit={this.handleSubmit.bind(this)} />
+              <LoginForm onSubmit={this.handleSubmit.bind(this)} wait={this.props.wait} />
             </CardText>
           </Card>
         </div>
@@ -42,7 +46,9 @@ class Login extends React.Component<IAppProps, IAppState> {
 }
 
 function mapStateToProps(state: any): IAppProps {
-  return {};
+  return {
+    wait: state.request.wait as boolean
+  };
 }
 
 function mapDispatchToProps(dispatch: Dispatch<any>) {
