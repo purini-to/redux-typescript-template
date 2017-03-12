@@ -1,4 +1,5 @@
-@import "~react-toolbox/lib/colors";
+@import "react-toolbox/lib/colors";
+@import "react-toolbox/lib/media";
 
 .root {
   color: var(--color-dark-contrast);
@@ -17,15 +18,25 @@
     background-position: center center;
     content: "";
     box-shadow: 0 2px 4px 1px rgba(0, 0, 0, 0.14);
+
+    @media screen and (--xs-viewport) {
+      min-height: 81px;
+      height: 81px;
+      z-index: 100;
+    }
   }
 }
 
 .container {
   position: relative;
   margin-top: 64px;
-  z-index: 1;
+  z-index: 1000;
   text-transform: uppercase;
   text-align: center;
+
+  @media screen and (--xs-viewport) {
+    margin-top: 8px;
+  }
 }
 
 .title {

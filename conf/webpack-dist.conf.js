@@ -10,6 +10,9 @@ const pkg = require('../package.json');
 const autoprefixer = require('autoprefixer');
 const cssnext = require('postcss-cssnext');
 const toolboxVariables = require('./toolbox-variables');
+const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
+const CompressionWebpackPlugin = require('compression-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 module.exports = {
   module: {
@@ -54,15 +57,9 @@ module.exports = {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     FailPlugin,
-    new HtmlWebpackPlugin({
-      template: conf.path.src('index.html')
-    }),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"production"'
     }),
-    new CopyWebpackPlugin([
-      { from: 'src/app/assets', to: 'assets' }
-    ]),
     new webpack.optimize.UglifyJsPlugin({
       beautify: false, //prod
       output: {
@@ -82,26 +79,44 @@ module.exports = {
         evaluate: true,
         if_return: true,
         join_vars: true,
-        negate_iife: false 
+        negate_iife: false
       } // eslint-disable-line camelcase
     }),
+    new ExtractTextPlugin('[name].[contenthash].css'),
+    new OptimizeCSSPlugin(),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
-    new ExtractTextPlugin('[name].[contenthash].css'),
-    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor' }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: "vendor",
+      minChunks: function(module){
+        return module.context && module.context.indexOf("node_modules") !== -1;
+      }
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: "manifest",
+      minChunks: Infinity
+    }),
+    new CopyWebpackPlugin([
+      { from: 'src/app/assets', to: 'assets' }
+    ]),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug: false,
       options: {
         postcss: () => [
-          autoprefixer,
+          require('postcss-import')(),
+          require('postcss-mixins')(),
+          require('postcss-each')(),
           cssnext({
             features: {
               customProperties: {
                 variables: toolboxVariables,
               },
             },
-          })],
+          }),
+          autoprefixer,
+          require('postcss-reporter')({ clearMessages: true })
+        ],
         resolve: {},
         ts: {
           configFileName: 'tsconfig.json'
@@ -110,7 +125,32 @@ module.exports = {
           configuration: require('../tslint.json')
         }
       }
-    })
+    }),
+    new CompressionWebpackPlugin({
+      asset: '[path].gz[query]',
+      algorithm: 'gzip',
+      test: new RegExp(
+        '\\.(' +
+        ['js', 'css'].join('|') +
+        ')$'
+      ),
+      threshold: 10240,
+      minRatio: 0.8
+    }),
+    new HtmlWebpackPlugin({
+      template: conf.path.src('index.html'),
+      inject: true,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+        // more options:
+        // https://github.com/kangax/html-minifier#options-quick-reference
+      },
+      // necessary to consistently work with multiple chunks via CommonsChunkPlugin
+      chunksSortMode: 'dependency'
+    }),
+    // new BundleAnalyzerPlugin()
   ],
   output: {
     path: path.join(process.cwd(), conf.paths.dist),
@@ -126,7 +166,6 @@ module.exports = {
     ]
   },
   entry: {
-    app: `./${conf.path.src('index')}`,
-    vendor: Object.keys(pkg.dependencies)
+    app: `./${conf.path.src('index')}`
   }
 };

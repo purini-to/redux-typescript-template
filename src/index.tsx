@@ -4,7 +4,7 @@ import { Provider, Store } from 'react-redux';
 import App from './app/containers/App';
 import Login from './app/containers/login/Login';
 import configureStore from './app/store/configureStore';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 import './index.css';
 
@@ -14,6 +14,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path='/' component={App}>
+        <IndexRoute component={Login} />
         <Route path='login' component={Login} />
       </Route>
     </Router>

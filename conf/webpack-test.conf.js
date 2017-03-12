@@ -47,13 +47,18 @@ module.exports = {
     new webpack.LoaderOptionsPlugin({
       options: {
       postcss: () => [
+        require('postcss-import')(),
+        require('postcss-mixins')(),
+        require('postcss-each')(),
         cssnext({
           features: {
             customProperties: {
               variables: toolboxVariables,
             },
           },
-        })
+        }),
+        autoprefixer,
+        require('postcss-reporter')({ clearMessages: true })
       ],
       resolve: {},
       ts: {

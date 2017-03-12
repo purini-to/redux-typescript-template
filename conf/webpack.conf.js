@@ -37,7 +37,7 @@ module.exports = {
         test: /\.tsx$/,
         exclude: /node_modules/,
         loaders: [
-          'react-hot-loader',
+          'react-hot-loader/webpack',
           'ts-loader'
         ]
       },
@@ -65,14 +65,18 @@ module.exports = {
     new webpack.LoaderOptionsPlugin({
       options: {
         postcss: () => [
-          autoprefixer,
+          require('postcss-import')(),
+          require('postcss-mixins')(),
+          require('postcss-each')(),
           cssnext({
             features: {
               customProperties: {
                 variables: toolboxVariables,
               },
             },
-          })
+          }),
+          autoprefixer,
+          require('postcss-reporter')({ clearMessages: true })
         ],
         resolve: {},
         ts: {

@@ -2,24 +2,38 @@ import * as React from 'react';
 import { Card, CardMedia, CardTitle, CardText, CardActions } from 'react-toolbox/lib/card';
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import * as classnames from 'classnames';
 
 import { APP_NAME } from '../../constants/Variables';
 import Cover from '../../components/core/cover/Cover';
+import LoginForm from '../../components/login/LoginForm';
+import { login } from '../../actions/auth/auth';
 
 import * as Styles from './Login.css';
 
-interface IAppProps { }
+interface IAppProps {
+  actions?: any;
+}
 
 interface IAppState { }
 
 class Login extends React.Component<IAppProps, IAppState> {
+  handleSubmit(form: object) {
+    this.props.actions.login(form);
+  }
+
   render(): JSX.Element {
     return (
       <div className='layout-column flex'>
         <Cover title={APP_NAME} subTitle='LINE WITH YOU' />
-        <div className='layout-column flex a-center'>
+        <div className={Styles.container}>
           <Card raised={true} className={Styles.cardLogin}>
-            <CardTitle title='ログイン' className='f-center' />
+            <i className={classnames('material-icons', Styles.iconLogin)}>account_circle</i>
+            <CardTitle title='ログイン' subtitle='あなたのユーザー情報を入力してください'
+              className='layout-column f-center center' />
+            <CardText>
+              <LoginForm onSubmit={this.handleSubmit.bind(this)} />
+            </CardText>
           </Card>
         </div>
       </div>
@@ -33,7 +47,9 @@ function mapStateToProps(state: any): IAppProps {
 
 function mapDispatchToProps(dispatch: Dispatch<any>) {
   return {
-    actions: bindActionCreators({}, dispatch)
+    actions: bindActionCreators({
+      login
+    }, dispatch)
   };
 }
 

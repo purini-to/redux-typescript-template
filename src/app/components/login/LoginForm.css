@@ -1,0 +1,11 @@
+.root{
+}
+
+.inputContainer {
+  min-width: 70%;
+}
+
+.actions {
+  padding: 20px 0;
+  min-width: 40%;
+}
