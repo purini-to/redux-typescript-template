@@ -9,6 +9,10 @@
     background: #f5f5f5;
   }
 
+  div[data-react-toolbox="input"]:not([class*="theme__errored"]) {
+    padding-bottom: 21px;
+  }
+
   #root {
     height: 100%;
   }

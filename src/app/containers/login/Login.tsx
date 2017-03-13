@@ -14,6 +14,7 @@ import * as Styles from './Login.css';
 
 interface IAppProps {
   wait: boolean;
+  auth: any;
   actions?: any;
 }
 
@@ -36,7 +37,8 @@ class Login extends React.Component<IAppProps, IAppState> {
             <CardTitle title='ログイン' subtitle='あなたのユーザー情報を入力してください'
               className='layout-column f-center center' />
             <CardText>
-              <LoginForm onSubmit={this.handleSubmit.bind(this)} wait={this.props.wait} />
+              <LoginForm onSubmit={this.handleSubmit.bind(this)} wait={this.props.wait}
+                errMsg={this.props.auth.errMsg} />
             </CardText>
           </Card>
         </div>
@@ -47,7 +49,8 @@ class Login extends React.Component<IAppProps, IAppState> {
 
 function mapStateToProps(state: any): IAppProps {
   return {
-    wait: state.request.wait as boolean
+    wait: state.request.wait as boolean,
+    auth: state.auth
   };
 }
 

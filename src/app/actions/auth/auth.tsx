@@ -15,10 +15,14 @@ export function login({ username, password }: { username: string, password: stri
   return async (dispatch: Dispatch<any>) => {
     dispatchPreRequest(dispatch);
     try {
-      const data = await authApi.login(username, password);
-      dispatch(Object.assign({ type: types.LOGIN_USER, ...data }));
-    } catch (error) {
-      console.error(error);
+      const res = await authApi.login(username, password);
+      dispatch({ type: types.LOGIN_SUCCESS, user: res.data });
+    } catch (e) {
+      // 想定してないエラーの場合はすぐに終了
+      if (!e.response || e.response.status !== 401) {
+        return dispatch({ type: types.THROW_ERROR, e: e });
+      }
+      dispatch({ type: e.response.statusText.toUpperCase(), data: e.response });
     } finally {
       dispatchPostRequest(dispatch);
     }

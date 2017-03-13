@@ -22,19 +22,25 @@ interface ILoginFormProps extends FormProps<IFormFields, {}, {}> {
   theme?: any;
   className?: string;
   wait?: boolean;
+  errMsg?: string;
 }
 
 interface ILoginFormState { };
 
 class LoginForm extends React.Component<ILoginFormProps, ILoginFormState> {
   renderInput(field: any) {
-    const hasError = !!field.meta.error && !!field.meta.touched;
+    let hasError = !!field.meta.error && !!field.meta.touched;
+    hasError = hasError || field.errMsg !== '';
 
+    let error = null;
+    if (hasError) {
+      error = field.meta.error || field.errMsg || ' ';
+    }
     return (
       <Input
         type={field.type}
         label={field.placeholder}
-        error={hasError ? field.meta.error : null}
+        error={error}
         className={field.className}
         {...field.input} />
     );
@@ -56,9 +62,9 @@ class LoginForm extends React.Component<ILoginFormProps, ILoginFormState> {
 
     return (
       <form className={className} onSubmit={handleSubmit!(onSubmit)}>
-        <Field name='username' component={this.renderInput} placeholder='ユーザー名'
+        <Field name='username' errMsg={(this.props.errMsg) ? '　' : ''} component={this.renderInput} placeholder='ユーザー名'
           type='text' required className={theme.inputContainer} />
-        <Field name='password' component={this.renderInput} placeholder='パスワード'
+        <Field name='password' errMsg={this.props.errMsg} component={this.renderInput} placeholder='パスワード'
           type='password' required className={theme.inputContainer} />
         <div className={classnames('layout', 'f-center', theme.actions)}>
           {this.renderSubmitButton(invalid, wait)}
