@@ -11,9 +11,6 @@ export function api() {
 };
 
 export function setToken(token: string) {
-  console.log(Object.assign({
-    headers: {'Authorization': token}
-  }, settings));
   instance = axios.create(Object.assign({
     headers: {'Authorization': token}
   }, settings));

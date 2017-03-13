@@ -1,27 +1,12 @@
-import { REQUEST_WAIT, LOGIN_SUCCESS, UNAUTHORIZED } from '../../constants/ActionTypes';
-import { assign } from '../../assign';
-import msg from '../../constants/Messages';
+import { REQUEST_WAIT, LOGIN_SUCCESS } from '../../constants/ActionTypes';
+import Token from '../../models/account/AccessToken';
 
-import {setToken} from '../../utils/api/axios';
-
-const initialState = {
-  id: null,
-  ttl: null,
-  userId: null,
-  errMsg: ''
-};
-
-export default function auth(state: any = initialState, action: any) {
+export default function auth(state: Token = new Token(), action: any): Token {
   switch (action.type) {
-    case REQUEST_WAIT:
-      return assign(state, {errMsg: ''});
-
     case LOGIN_SUCCESS:
-      setToken(action.user.id);
-      return assign(state, action.user, {errMsg: ''});
-
-    case UNAUTHORIZED:
-      return assign(state, { errMsg: msg[UNAUTHORIZED] });
+      const { id, ttl, userId } = action.user;
+      Token.setAuthHeader(id);
+      return state.set('id', id).set('ttl', ttl).set('userId', userId);
 
     default:
       return state;

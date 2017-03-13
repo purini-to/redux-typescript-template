@@ -10,11 +10,14 @@ import Cover from '../../components/core/cover/Cover';
 import LoginForm from '../../components/login/LoginForm';
 import { login } from '../../actions/auth/auth';
 
+import Common from '../../models/core/Common';
+import Token from '../../models/account/AccessToken';
+
 import * as Styles from './Login.css';
 
 interface IAppProps {
-  wait: boolean;
-  auth: any;
+  common: Common;
+  token: Token;
   actions?: any;
 }
 
@@ -22,7 +25,7 @@ interface IAppState { }
 
 class Login extends React.Component<IAppProps, IAppState> {
   handleSubmit(form: object) {
-    if (!this.props.wait) {
+    if (!this.props.common.get('wait')) {
       this.props.actions.login(form);
     }
   }
@@ -37,8 +40,8 @@ class Login extends React.Component<IAppProps, IAppState> {
             <CardTitle title='ログイン' subtitle='あなたのユーザー情報を入力してください'
               className='layout-column f-center center' />
             <CardText>
-              <LoginForm onSubmit={this.handleSubmit.bind(this)} wait={this.props.wait}
-                errMsg={this.props.auth.errMsg} />
+              <LoginForm onSubmit={this.handleSubmit.bind(this)}
+                wait={this.props.common.get('wait')} errMsg={this.props.common.get('msg')} />
             </CardText>
           </Card>
         </div>
@@ -49,8 +52,8 @@ class Login extends React.Component<IAppProps, IAppState> {
 
 function mapStateToProps(state: any): IAppProps {
   return {
-    wait: state.request.wait as boolean,
-    auth: state.auth
+    common: state.common as Common,
+    token: state.auth as Token
   };
 }
 
