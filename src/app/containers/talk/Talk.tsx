@@ -20,7 +20,6 @@ interface IAppState { }
 class Talk extends React.Component<IAppProps, IAppState> {
 
   render(): JSX.Element {
-    console.log(this.props);
     return (
       <div className='layout-column flex'>
         <h1>Talk Component</h1>

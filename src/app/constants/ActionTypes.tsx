@@ -9,3 +9,4 @@ export const REQUEST_WAIT = 'REQUEST_WAIT';
 export const REQUEST_COMPLETE = 'REQUEST_COMPLETE';
 export const THROW_ERROR = 'THROW_ERROR';
 export const UNAUTHORIZED = 'UNAUTHORIZED';
+export const SET_MY_ACCOUNT = 'GET_MY_ACCOUNT';

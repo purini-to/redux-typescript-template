@@ -4,9 +4,9 @@ import Token from '../../models/account/AccessToken';
 export default function auth(state: Token = new Token(), action: any): Token {
   switch (action.type) {
     case LOGIN_SUCCESS:
-      const { id, ttl, userId } = action.user;
+      const { id } = action.user;
       Token.setAuthHeader(id);
-      return state.withMutations(s => s.set('id', id).set('ttl', ttl).set('userId', userId));
+      return state.clear().merge(action.user);
 
     default:
       return state;

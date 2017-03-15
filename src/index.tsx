@@ -6,12 +6,13 @@ import Login from './app/containers/login/Login';
 import Talk from './app/containers/talk/Talk';
 import configureStore from './app/store/configureStore';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import { syncHistoryWithStore } from 'react-router-redux'
+import { syncHistoryWithStore } from 'react-router-redux';
+import { UserIsAuthenticated } from './app/utils/router/wrappers';
 
 import './index.css';
 
 const store: Store<any> = configureStore(browserHistory, {});
-const history = syncHistoryWithStore(browserHistory, store)
+const history = syncHistoryWithStore(browserHistory, store);
 
 ReactDOM.render(
   <Provider store={store}>
@@ -19,7 +20,7 @@ ReactDOM.render(
       <Route path='/' component={App}>
         <IndexRoute component={Login} />
         <Route path='login' component={Login} />
-        <Route path='talks' component={Talk} />
+        <Route path='talks' component={UserIsAuthenticated(Talk)} />
       </Route>
     </Router>
   </Provider>,
