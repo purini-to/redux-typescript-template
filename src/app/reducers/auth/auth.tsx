@@ -6,7 +6,7 @@ export default function auth(state: Token = new Token(), action: any): Token {
     case LOGIN_SUCCESS:
       const { id, ttl, userId } = action.user;
       Token.setAuthHeader(id);
-      return state.set('id', id).set('ttl', ttl).set('userId', userId);
+      return state.withMutations(s => s.set('id', id).set('ttl', ttl).set('userId', userId));
 
     default:
       return state;

@@ -1,4 +1,5 @@
 import { Dispatch } from 'redux';
+import { push } from 'react-router-redux'
 
 import * as types from '../../constants/ActionTypes';
 import * as authApi from '../../utils/api/auth';
@@ -16,7 +17,8 @@ export function login({ username, password }: { username: string, password: stri
     dispatchPreRequest(dispatch);
     try {
       const res = await authApi.login(username, password);
-      dispatch({ type: types.LOGIN_SUCCESS, user: res.data });
+      await dispatch({ type: types.LOGIN_SUCCESS, user: res.data });
+      dispatch(push('/talks'));
     } catch (e) {
       // 想定してないエラーの場合はすぐに終了
       if (!e.response || e.response.status !== 401) {
