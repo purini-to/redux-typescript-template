@@ -1,14 +1,4 @@
 :global {
-  html,
-  body {
-    height: 100%;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-    background: #f5f5f5;
-  }
-
   div[data-react-toolbox="input"]:not([class*="theme__errored"]) {
     padding-bottom: 21px;
   }
