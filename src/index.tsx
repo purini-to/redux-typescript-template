@@ -7,7 +7,7 @@ import Talk from './app/containers/talk/Talk';
 import configureStore from './app/store/configureStore';
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
-import { UserIsAuthenticated } from './app/utils/router/wrappers';
+import { Authenticated } from './app/utils/router/wrappers';
 
 import './index.css';
 
@@ -20,7 +20,9 @@ ReactDOM.render(
       <Route path='/' component={App}>
         <IndexRoute component={Login} />
         <Route path='login' component={Login} />
-        <Route path='talks' component={UserIsAuthenticated(Talk)} />
+        <Route component={Authenticated}>
+          <Route path='talks' component={Talk} />
+        </Route>
       </Route>
     </Router>
   </Provider>,

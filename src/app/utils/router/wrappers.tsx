@@ -4,7 +4,7 @@ import * as accountApi from '../../utils/api/account';
 import * as types from '../../constants/ActionTypes';
 import Token from '../../models/account/AccessToken';
 
-export const UserIsAuthenticated = UserAuthWrapper({
+const UserIsAuthenticated = UserAuthWrapper({
   // number型を返すと型エラーとなる為インスタンスオブジェクトを返す
   // どうやらobject型でないとダメみたい
   authSelector: state => (state.account.get('id')) ? state.account : null,
@@ -12,7 +12,7 @@ export const UserIsAuthenticated = UserAuthWrapper({
   redirectAction: newLoc => async (dispatch, getState) => {
     // トークンを利用して自身の情報を取得する
     const auth: Token = getState().auth;
-    if (!auth && !auth.get('userId')) {
+    if (!auth || !auth.get('userId')) {
       return dispatch(replace(newLoc));
     }
 
@@ -29,3 +29,5 @@ export const UserIsAuthenticated = UserAuthWrapper({
   },
   wrapperDisplayName: 'UserIsAuthenticated'
 });
+
+export const Authenticated = UserIsAuthenticated((props) => props.children);
