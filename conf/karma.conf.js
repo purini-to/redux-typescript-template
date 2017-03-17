@@ -32,9 +32,14 @@ module.exports = function (config) {
       ]
     },
     reporters: ['mocha', 'coverage', 'karma-remap-istanbul'],
+    coverageReporter: {
+      type: 'in-memory'
+    },
     remapIstanbulReporter: {
       reports: {
-        'text-summary': null, // to display summary results on console
+        'text-summary': null, // to show summary in console 
+        html: './coverage/html',
+        cobertura: './coverage/cobertura.xml'
       }
     },
     webpack: require('./webpack-test.conf'),
