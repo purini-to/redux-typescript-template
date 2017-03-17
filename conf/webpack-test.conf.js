@@ -19,6 +19,12 @@ module.exports = {
         enforce: 'pre'
       },
       {
+        test: /\.tsx?$/i,
+        exclude: /(node_modules|spec\.tsx?$)/i,
+        loader: 'istanbul-instrumenter-loader',
+        enforce: 'post'
+      },
+      {
         test: /\.(css|scss)$/,
         loaders: [
           'style-loader',

@@ -1,3 +1,4 @@
+const path = require('path');
 const conf = require('./gulp.conf');
 
 module.exports = function (config) {
@@ -6,6 +7,10 @@ module.exports = function (config) {
     singleRun: true,
     autoWatch: false,
     logLevel: 'INFO',
+    captureTimeout: 600000,
+    browserDisconnectTimeout: 100000,
+    browserDisconnectTolerance: 3,
+    browserNoActivityTimeout: 600000,
     junitReporter: {
       outputDir: 'test-reports'
     },
@@ -14,21 +19,23 @@ module.exports = function (config) {
     ],
     frameworks: [
       'jasmine',
-      'es6-shim'
+      'es6-shim',
+      'source-map-support'
     ],
     files: [
       'node_modules/es6-shim/es6-shim.js',
-      conf.path.src('index.spec.js')
+      conf.path.src('**/*.spec.tsx')
     ],
     preprocessors: {
-      [conf.path.src('index.spec.js')]: [
+      [conf.path.src('**/*spec.tsx')]: [
         'webpack'
       ]
     },
-    reporters: ['mocha'],
-    coverageReporter: {
-      type: 'html',
-      dir: 'coverage/'
+    reporters: ['mocha', 'coverage', 'karma-remap-istanbul'],
+    remapIstanbulReporter: {
+      reports: {
+        'text-summary': null, // to display summary results on console
+      }
     },
     webpack: require('./webpack-test.conf'),
     webpackMiddleware: {
@@ -42,7 +49,10 @@ module.exports = function (config) {
       require('karma-phantomjs-shim'),
       require('karma-webpack'),
       require('karma-es6-shim'),
-      require('karma-mocha-reporter')
+      require('karma-mocha-reporter'),
+      require('karma-coverage-istanbul-reporter'),
+      require('karma-source-map-support'),
+      require('karma-remap-istanbul')
     ]
   };
 
