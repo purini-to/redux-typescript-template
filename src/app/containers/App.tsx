@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import Header from '../components/Header';
-import MainSection from '../components/MainSection';
 import { addTodo, deleteTodo, editTodo, completeTodo, completeAll, clearCompleted } from '../actions/index';
 
 interface IAppProps { }
