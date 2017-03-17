@@ -6,10 +6,6 @@ module.exports = function (config) {
     singleRun: false,
     autoWatch: true,
     logLevel: 'INFO',
-    captureTimeout: 600000,
-    browserDisconnectTimeout: 100000,
-    browserDisconnectTolerance: 3,
-    browserNoActivityTimeout: 600000,
     junitReporter: {
       outputDir: 'test-reports'
     },
@@ -30,12 +26,7 @@ module.exports = function (config) {
         'webpack'
       ]
     },
-    reporters: ['mocha', 'coverage', 'karma-remap-istanbul'],
-    remapIstanbulReporter: {
-      reports: {
-        'text-summary': null, // to display summary results on console
-      }
-    },
+    reporters: ['mocha'],
     webpack: require('./webpack-test.conf'),
     webpackMiddleware: {
       noInfo: true
@@ -49,7 +40,6 @@ module.exports = function (config) {
       require('karma-webpack'),
       require('karma-es6-shim'),
       require('karma-mocha-reporter'),
-      require('karma-coverage-istanbul-reporter'),
       require('karma-source-map-support'),
       require('karma-remap-istanbul')      
     ]
