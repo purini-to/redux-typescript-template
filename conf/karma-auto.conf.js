@@ -25,7 +25,7 @@ module.exports = function (config) {
         'webpack'
       ]
     },
-    reporters: ['progress', 'coverage'],
+    reporters: ['mocha'],
     coverageReporter: {
       type: 'html',
       dir: 'coverage/'
@@ -41,7 +41,8 @@ module.exports = function (config) {
       require('karma-phantomjs-launcher'),
       require('karma-phantomjs-shim'),
       require('karma-webpack'),
-      require('karma-es6-shim')
+      require('karma-es6-shim'),
+      require('karma-mocha-reporter')
     ]
   };
 

@@ -25,7 +25,7 @@ module.exports = function (config) {
         'webpack'
       ]
     },
-    reporters: ['mocha', 'coverage'],
+    reporters: ['mocha'],
     coverageReporter: {
       type: 'html',
       dir: 'coverage/'
