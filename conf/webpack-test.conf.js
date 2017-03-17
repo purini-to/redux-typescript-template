@@ -1,4 +1,5 @@
 const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
 const cssnext = require('postcss-cssnext');
 const toolboxVariables = require('./toolbox-variables');
 
