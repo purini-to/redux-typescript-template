@@ -1,2 +1,6 @@
 const context = require.context('./app', true, /\.(js|ts|tsx)$/);
-context.keys().filter(name => name.indexOf('.d.ts') === -1).forEach(context);
+context.keys().filter(filterDefines).forEach(context);
+
+function filterDefines(name) {
+    return name.indexOf('.d.ts') === -1;
+}
