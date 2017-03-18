@@ -1,4 +1,4 @@
-import { REQUEST_WAIT, REQUEST_COMPLETE, UNAUTHORIZED } from '../../constants/ActionTypes';
+import { REQUEST_WAIT, REQUEST_COMPLETE, LOGIN_FAILED } from '../../constants/ActionTypes';
 import Common from '../../models/core/Common';
 import msg from '../../constants/Messages';
 
@@ -10,8 +10,8 @@ export default function request(state: Common = new Common(), action: any): Comm
     case REQUEST_COMPLETE:
       return state.set('wait', false) as Common;
 
-    case UNAUTHORIZED:
-      return state.set('msg', msg[UNAUTHORIZED]) as Common;
+    case LOGIN_FAILED:
+      return state.set('msg', msg[LOGIN_FAILED]) as Common;
 
     default:
       return state;

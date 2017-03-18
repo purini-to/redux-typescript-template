@@ -8,5 +8,5 @@ export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const REQUEST_WAIT = 'REQUEST_WAIT';
 export const REQUEST_COMPLETE = 'REQUEST_COMPLETE';
 export const THROW_ERROR = 'THROW_ERROR';
-export const UNAUTHORIZED = 'UNAUTHORIZED';
+export const LOGIN_FAILED = 'LOGIN_FAILED';
 export const SET_MY_ACCOUNT = 'SET_MY_ACCOUNT';

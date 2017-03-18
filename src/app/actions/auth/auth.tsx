@@ -20,11 +20,11 @@ export function login({ username, password }: { username: string, password: stri
     try {
       // ログイン処理を行う
       const res = await authApi.login(username, password);
-      await dispatch({ type: types.LOGIN_SUCCESS, user: res.data });
+      await dispatch({ type: types.LOGIN_SUCCESS, payload: res.data });
       // トークンを利用して自身の情報を取得する
       const auth: Token = getState().auth;
       const resAccount = await accountApi.getId(auth.userId);
-      await dispatch({ type: types.SET_MY_ACCOUNT, user: resAccount.data });
+      await dispatch({ type: types.SET_MY_ACCOUNT, payload: resAccount.data });
       // トーク画面へ移動する
       dispatch(push('/talks'));
     } catch (e) {
@@ -32,7 +32,7 @@ export function login({ username, password }: { username: string, password: stri
       if (!e.response || e.response.status !== 401) {
         return dispatch({ type: types.THROW_ERROR, e: e });
       }
-      dispatch({ type: e.response.statusText.toUpperCase(), data: e.response });
+      dispatch({ type: e.response.data.error.code.toUpperCase(), payload: e.response.data });
     } finally {
       dispatchPostRequest(dispatch);
     }
