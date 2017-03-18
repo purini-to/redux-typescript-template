@@ -27,6 +27,9 @@ module.exports = function (config) {
       ]
     },
     reporters: ['mocha'],
+    mochaReporter: {
+      showDiff: true
+    },
     webpack: require('./webpack-test.conf'),
     webpackMiddleware: {
       noInfo: true
@@ -41,7 +44,7 @@ module.exports = function (config) {
       require('karma-es6-shim'),
       require('karma-mocha-reporter'),
       require('karma-source-map-support'),
-      require('karma-remap-istanbul')      
+      require('karma-remap-istanbul')
     ]
   };
 

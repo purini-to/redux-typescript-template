@@ -1,5 +1,4 @@
 import { THROW_ERROR } from '../../constants/ActionTypes';
-import { assign } from '../../assign';
 import msg from '../../constants/Messages';
 
 const initialState = {};
