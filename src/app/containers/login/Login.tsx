@@ -25,7 +25,7 @@ interface IAppState { }
 
 class Login extends React.Component<IAppProps, IAppState> {
   handleSubmit(form: object) {
-    if (!this.props.common.get('wait')) {
+    if (!this.props.common.wait) {
       this.props.actions.login(form);
     }
   }
@@ -41,7 +41,7 @@ class Login extends React.Component<IAppProps, IAppState> {
               className='layout-column f-center center' />
             <CardText>
               <LoginForm onSubmit={this.handleSubmit.bind(this)}
-                wait={this.props.common.get('wait')} errMsg={this.props.common.get('msg')} />
+                wait={this.props.common.wait} errMsg={this.props.common.msg} />
             </CardText>
           </Card>
         </div>

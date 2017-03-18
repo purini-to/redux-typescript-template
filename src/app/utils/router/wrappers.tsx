@@ -7,18 +7,18 @@ import Token from '../../models/account/AccessToken';
 const UserIsAuthenticated = UserAuthWrapper({
   // number型を返すと型エラーとなる為インスタンスオブジェクトを返す
   // どうやらobject型でないとダメみたい
-  authSelector: state => (state.account.get('id')) ? state.account : null,
-  authenticatingSelector: state => state.account.get('id'),
+  authSelector: state => (state.account.id) ? state.account : null,
+  authenticatingSelector: state => state.account.id,
   redirectAction: newLoc => async (dispatch, getState) => {
     // トークンを利用して自身の情報を取得する
     const auth: Token = getState().auth;
-    if (!auth || !auth.get('userId')) {
+    if (!auth || !auth.userId) {
       return dispatch(replace(newLoc));
     }
 
     try {
-      const id = auth.get('id');
-      const userId = auth.get('userId');
+      const id = auth.id;
+      const userId = auth.userId;
 
       Token.setAuthHeader(id);
       const resAccount = await accountApi.getId(userId);

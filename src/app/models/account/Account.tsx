@@ -10,4 +10,10 @@ const AccountRecord = Record({
 });
 
 export default class Account extends AccountRecord {
+  id: number;
+  username: string;
+  firstname: string;
+  lastname: string;
+  createdAt: Date;
+  updatedAt: Date;
 };

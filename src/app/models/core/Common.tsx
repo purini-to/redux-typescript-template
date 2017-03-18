@@ -6,4 +6,6 @@ const CommonRecord = Record({
 });
 
 export default class Common extends CommonRecord {
+  wait: boolean;
+  msg: string;
 };
