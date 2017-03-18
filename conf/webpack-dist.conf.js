@@ -14,6 +14,8 @@ const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
+const valiables = require('./variables');
+
 module.exports = {
   module: {
     loaders: [
@@ -57,9 +59,11 @@ module.exports = {
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     FailPlugin,
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"'
-    }),
+    new webpack.EnvironmentPlugin(
+      Object.assign({
+        NODE_ENV: 'production',
+      }, valiables)
+    ),
     new webpack.optimize.UglifyJsPlugin({
       beautify: false, //prod
       output: {
@@ -88,7 +92,7 @@ module.exports = {
     new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.optimize.CommonsChunkPlugin({
       name: "vendor",
-      minChunks: function(module){
+      minChunks: function (module) {
         return module.context && module.context.indexOf("node_modules") !== -1;
       }
     }),

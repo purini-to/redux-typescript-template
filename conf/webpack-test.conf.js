@@ -3,6 +3,8 @@ const autoprefixer = require('autoprefixer');
 const cssnext = require('postcss-cssnext');
 const toolboxVariables = require('./toolbox-variables');
 
+const valiables = require('./variables');
+
 module.exports = {
   module: {
     loaders: [
@@ -76,7 +78,12 @@ module.exports = {
         }
       },
       debug: true
-    })
+    }),
+    new webpack.EnvironmentPlugin(
+      Object.assign({
+        NODE_ENV: 'test',
+      }, valiables)
+    )
   ],
   devtool: 'source-map',
   resolve: {

@@ -5,7 +5,6 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import * as classnames from 'classnames';
 
-import { APP_NAME } from '../../constants/Variables';
 import Cover from '../../components/core/cover/Cover';
 import LoginForm from '../../components/login/LoginForm';
 import { login } from '../../actions/auth/auth';
@@ -14,6 +13,8 @@ import Common from '../../models/core/Common';
 import Token from '../../models/account/AccessToken';
 
 import * as Styles from './Login.css';
+
+declare var process: any;
 
 interface IAppProps {
   common: Common;
@@ -33,7 +34,7 @@ class Login extends React.Component<IAppProps, IAppState> {
   render(): JSX.Element {
     return (
       <div className='layout-column flex'>
-        <Cover title={APP_NAME} subTitle='LINE WITH YOU' />
+        <Cover title={process.env.APP_NAME} subTitle={process.env.APP_DECORATION} />
         <div className={Styles.container}>
           <Card raised={true} className={Styles.cardLogin}>
             <i className={classnames('material-icons', Styles.iconLogin)}>account_circle</i>
