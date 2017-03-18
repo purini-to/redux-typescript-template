@@ -27,9 +27,6 @@ module.exports = function (config) {
       ]
     },
     reporters: ['mocha'],
-    mochaReporter: {
-      showDiff: true
-    },
     webpack: require('./webpack-test.conf'),
     webpackMiddleware: {
       noInfo: true
