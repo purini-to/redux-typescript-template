@@ -1,4 +1,6 @@
 {
+  "name": "redux-typescript-template",
+  "version": "0.0.1",
   "dependencies": {
     "axios": "^0.15.3",
     "classnames": "^2.2.5",
@@ -49,9 +51,7 @@
     "eslint-plugin-react": "^6.10.0",
     "extract-text-webpack-plugin": "^2.0.0-rc.3",
     "file-loader": "^0.10.1",
-    "gulp": "gulpjs/gulp#4ed9a4a3275559c73a396eff7e1fde3824951ebb",
     "gulp-filter": "^5.0.0",
-    "gulp-hub": "frankwallis/gulp-hub#d461b9c700df9010d0a8694e4af1fb96d9f38bf4",
     "gulp-sass": "^3.1.0",
     "gulp-util": "^3.0.8",
     "html-webpack-plugin": "^2.28.0",
@@ -105,7 +105,8 @@
     "serve": "gulp serve",
     "serve:dist": "gulp serve:dist",
     "test": "gulp test",
-    "test:auto": "gulp test:auto"
+    "test:auto": "gulp test:auto",
+    "start": "gulp serve"
   },
   "eslintConfig": {
     "root": true,
@@ -118,5 +119,8 @@
       "xo-space/esnext"
     ],
     "parser": "babel-eslint"
-  }
+  },
+  "author": "purini-to",
+  "license": "MIT",
+  "description": "The material design template with redux and typescript. With login authentication sample."
 }
