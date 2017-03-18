@@ -53,28 +53,28 @@ module.exports = {
   plugins: [
     new webpack.LoaderOptionsPlugin({
       options: {
-      postcss: () => [
-        require('postcss-import')(),
-        require('postcss-mixins')(),
-        require('postcss-each')(),
-        cssnext({
-          features: {
-            customProperties: {
-              variables: toolboxVariables,
+        postcss: () => [
+          require('postcss-import')(),
+          require('postcss-mixins')(),
+          require('postcss-each')(),
+          cssnext({
+            features: {
+              customProperties: {
+                variables: toolboxVariables,
+              },
             },
-          },
-        }),
-        autoprefixer,
-        require('postcss-reporter')({ clearMessages: true })
-      ],
-      resolve: {},
-      ts: {
-        configFileName: 'tsconfig.json'
+          }),
+          autoprefixer,
+          require('postcss-reporter')({ clearMessages: true })
+        ],
+        resolve: {},
+        ts: {
+          configFileName: 'tsconfig.json'
+        },
+        tslint: {
+          configuration: require('../tslint.json')
+        }
       },
-      tslint: {
-        configuration: require('../tslint.json')
-      }
-    },
       debug: true
     })
   ],
@@ -93,6 +93,7 @@ module.exports = {
     cheerio: 'window',
     'react/lib/ExecutionEnvironment': 'true',
     'react/lib/ReactContext': 'window',
-    'text-encoding': 'window'
+    'text-encoding': 'window',
+    fs: '{}'
   }
 };

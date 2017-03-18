@@ -1,4 +1,5 @@
 import axios from 'axios';
+import httpAdapter from 'axios/lib/adapters/http';
 
 const settings = {
   baseURL: 'http://localhost:9000/api/',
@@ -12,6 +13,6 @@ export function api() {
 
 export function setToken(token: string) {
   instance = axios.create(Object.assign({
-    headers: {'Authorization': token}
+    headers: { 'Authorization': token }
   }, settings));
 }

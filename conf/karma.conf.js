@@ -24,10 +24,10 @@ module.exports = function (config) {
     ],
     files: [
       'node_modules/es6-shim/es6-shim.js',
-      conf.path.src('**/*.spec.tsx')
+      conf.path.src('index.spec.tsx')
     ],
     preprocessors: {
-      [conf.path.src('**/*spec.tsx')]: [
+      [conf.path.src('**/*.tsx')]: [
         'webpack'
       ]
     },
