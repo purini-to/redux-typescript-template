@@ -23,7 +23,7 @@ export function login({ username, password }: { username: string, password: stri
       await dispatch({ type: types.LOGIN_SUCCESS, user: res.data });
       // トークンを利用して自身の情報を取得する
       const auth: Token = getState().auth;
-      const resAccount = await accountApi.getId(auth.get('userId'));
+      const resAccount = await accountApi.getId(auth.userId);
       await dispatch({ type: types.SET_MY_ACCOUNT, user: resAccount.data });
       // トーク画面へ移動する
       dispatch(push('/talks'));
