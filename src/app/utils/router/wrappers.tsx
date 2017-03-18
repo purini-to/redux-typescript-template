@@ -22,7 +22,7 @@ const UserIsAuthenticated = UserAuthWrapper({
 
       Token.setAuthHeader(id);
       const resAccount = await accountApi.getId(userId);
-      dispatch({ type: types.SET_MY_ACCOUNT, user: resAccount.data });
+      dispatch({ type: types.FETCH_MY_ACCOUNT, payload: resAccount.data });
     } catch (e) {
       dispatch(replace(newLoc));
     }

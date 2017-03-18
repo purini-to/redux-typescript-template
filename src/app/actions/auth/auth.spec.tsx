@@ -44,7 +44,7 @@ describe('Actions', () => {
       const expectedActions = [
         { type: types.REQUEST_WAIT },
         { type: types.LOGIN_SUCCESS, payload: token },
-        { type: types.SET_MY_ACCOUNT, payload: account },
+        { type: types.FETCH_MY_ACCOUNT, payload: account },
         { type: '@@router/CALL_HISTORY_METHOD', payload: { method: 'push', args: ['/talks'] } },
         { type: types.REQUEST_COMPLETE },
       ];

@@ -9,4 +9,4 @@ export const REQUEST_WAIT = 'REQUEST_WAIT';
 export const REQUEST_COMPLETE = 'REQUEST_COMPLETE';
 export const THROW_ERROR = 'THROW_ERROR';
 export const LOGIN_FAILED = 'LOGIN_FAILED';
-export const SET_MY_ACCOUNT = 'SET_MY_ACCOUNT';
+export const FETCH_MY_ACCOUNT = 'FETCH_MY_ACCOUNT';

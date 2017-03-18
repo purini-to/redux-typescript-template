@@ -22,7 +22,7 @@ module.exports = {
       },
       {
         test: /\.tsx?$/i,
-        exclude: /(node_modules|spec\.tsx?$|configureStore.tsx?$|wrappers.tsx?$)/i,
+        exclude: /(node_modules|spec\.tsx?$|configureStore.tsx?$|wrappers.tsx?$|components|containers)/i,
         loader: 'istanbul-instrumenter-loader',
         enforce: 'post'
       },

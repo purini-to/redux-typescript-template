@@ -31,7 +31,7 @@ module.exports = function (config) {
         'webpack'
       ]
     },
-    reporters: ['mocha', 'coverage', 'karma-remap-istanbul'],
+    reporters: ['jasmine-diff', 'mocha', 'coverage', 'karma-remap-istanbul'],
     coverageReporter: {
       type: 'in-memory'
     },
@@ -57,7 +57,8 @@ module.exports = function (config) {
       require('karma-mocha-reporter'),
       require('karma-coverage-istanbul-reporter'),
       require('karma-source-map-support'),
-      require('karma-remap-istanbul')
+      require('karma-remap-istanbul'),
+      require('karma-jasmine-diff-reporter')
     ]
   };
 

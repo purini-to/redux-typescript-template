@@ -24,7 +24,7 @@ export function login({ username, password }: { username: string, password: stri
       // トークンを利用して自身の情報を取得する
       const auth: Token = getState().auth;
       const resAccount = await accountApi.getId(auth.userId);
-      await dispatch({ type: types.SET_MY_ACCOUNT, payload: resAccount.data });
+      await dispatch({ type: types.FETCH_MY_ACCOUNT, payload: resAccount.data });
       // トーク画面へ移動する
       dispatch(push('/talks'));
     } catch (e) {
