@@ -4,6 +4,8 @@ The material design template with redux and typescript.
 With login authentication sample.
 Template for react and redux using Webpack and gulp.
 
+![デモ](https://github.com/purini-to/redux-typescript-template/raw/master/doc/images/demo.gif)
+
 * Typescript support.
 * Testing environment using karma to run tests and jasmine as the framework.
 * Code coverage when tests are run.
