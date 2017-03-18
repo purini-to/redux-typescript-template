@@ -1,8 +1,8 @@
 # redux-typescript-template
 
-The material design template with redux and typescript.
-With login authentication sample.
-Template for react and redux using Webpack and gulp.
+The material design template with redux and typescript.  
+With login authentication sample.  
+Template for react and redux using Webpack and gulp.  
 
 ![デモ](https://github.com/purini-to/redux-typescript-template/raw/master/doc/images/demo.gif)
 
