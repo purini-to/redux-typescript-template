@@ -13,7 +13,7 @@ describe('Reducers', () => {
     it('ログイン成功時にトークンを保存してリクエストヘッダーにトークンを設定すること', () => {
       const token = Data.Token.default;
       const state = test({ type: LOGIN_SUCCESS, payload: token });
-      expect(state).toEqual(new Token().merge(token));
+      expect(state).toEqual(new Token().merge(token) as Token);
       expect(api().defaults.headers[process.env.APP_API_HEADER_AUTH]).toBe(token.id);
     });
   });

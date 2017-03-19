@@ -12,7 +12,7 @@ describe('Reducers', () => {
     it('アカウント情報を保存できること', () => {
       const account = Data.Account.default;
       const state = test({ type: FETCH_MY_ACCOUNT, payload: account });
-      expect(state).toEqual(new Account().merge(account));
+      expect(state).toEqual(new Account().merge(account) as Account);
     });
   });
 });
